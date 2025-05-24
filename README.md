@@ -1,6 +1,8 @@
 # Simple-microservice-product-order-services-kafka
-ไมโครเซอร์วิส: ระบบสินค้า-ออเดอร์ สื่อสารกันผ่าน Kafka
- 
+ไมโครเซอร์วิส: product service, order-services สื่อสารกันผ่าน Kafka
+โดยแต่ละ Service มีฐานข้อมูลของตัวเอง
+เมื่อมีสินค้าเพิ่มใหม่ (ProductDb) ที่ product service... จะส่ง Message (New Product) ไปที่ Kafka
+ที่ order-services จะดึง... Message(New Product) จาก Kafka ลงไปบันทึกที่ฐานข้อมูล ของตัวเอง OrderDb...
 
 **แยก Product Service, Order Service คนละ Project, คนละ Repo, คนละ Solution** 
 
