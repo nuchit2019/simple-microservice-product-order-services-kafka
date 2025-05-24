@@ -54,10 +54,7 @@
 
 ---
 
-**English Summary:**
-This example demonstrates how to integrate Product Service and Order Service (in separate projects/repos/solutions), using Kafka as the asynchronous event bus. When a new product is created in Product Service (ProductDb), it publishes an event to Kafka, which is then consumed by Order Service and stored in its own database (OrderDb). No direct API calls—only event-driven communication.
-
----
+ 
 
 ถ้าต้องการโค้ดตัวอย่าง, Diagram, หรือ Flow เพิ่มเติม แจ้งได้เลย!
 
