@@ -53,10 +53,7 @@
 
 
 ---
-
  
-
-ถ้าต้องการโค้ดตัวอย่าง, Diagram, หรือ Flow เพิ่มเติม แจ้งได้เลย!
 
  
 # **Activity Diagram, Component Diagram**
