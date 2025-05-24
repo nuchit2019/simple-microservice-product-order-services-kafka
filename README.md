@@ -350,17 +350,12 @@ public class KafkaProductConsumer : BackgroundService
 
 #
 
-### 4.5 **ลงทะเบียนใน DI (Program.cs)**
+### 4.5 **Register DI (Program.cs)**
 
 ```csharp
 builder.Services.AddHostedService<KafkaProductConsumer>();
 ```
-
-**ข้อสำคัญ:**
-
-* อย่า inject service ที่เป็น Scoped ตรงๆ ให้ inject `IServiceScopeFactory` ตามตัวอย่างเท่านั้น
-
-#
+ 
 
 ## 5. **Kafka Cluster (Docker Compose)**
 
@@ -400,41 +395,15 @@ services:
 
 #
 
-## 6. **ข้อควรระวังและ Best Practice**
-
-* แนะนำให้ใช้ **Event Contract** (class/record) เดียวกันทั้งสองฝั่ง
-* Kafka producer/consumer ควร **Handle Error/Retry** อย่างเหมาะสม
-* Database ของแต่ละ Service แยกขาดกันเด็ดขาด
-* Sync ผ่าน Event เท่านั้น ไม่ cross query
-* ถ้าระบบ Production ควรใส่ Logging, Monitoring, Alert
-* กำหนด `AutoOffsetReset` ให้เหมาะกับ use case
-* ทดสอบ Kafka บน Local ด้วย Kafdrop ได้ที่ [http://localhost:9000](http://localhost:9000)
-
-#
-
-## 7. **Dev & Deploy Flow**
-
-1. Dev, Test Product Service → CRUD + ส่ง Event
-2. Dev, Test Order Service → Consume Event + Sync DB
-3. ทดสอบ Kafka ว่าส่ง/รับ message ได้จริง
-4. Deploy service แบบอิสระ (แต่ต้องต่อ Kafka ตัวเดียวกัน)
-
-#
-
-## 8. **FAQ / Troubleshooting**
-
-* **Error: Cannot consume scoped service from singleton**
-
-  * แก้ด้วยการ inject `IServiceScopeFactory` แล้วสร้าง scope ตามตัวอย่าง
-* **Kafka connect failed (host.docker.internal)**
-
-  * แก้ด้วยการใช้ `localhost` หรือ network name ตาม Docker compose ที่ config
-* **DB ไม่ sync**
-
-  * ตรวจสอบว่า Event ถูกส่งจริงหรือไม่
-  * ตรวจสอบ Consumer Log/DI Scope ว่าถูกต้อง
-
-#
+## 6. **ขั้นตอนการรัน**
+### 6.1 เปิด Docker Desktop
+### 6.2 พาธ Project ที่มีไฟล์ docker-compose.yml เข้า cmd แล้วพิมพ์ คำสั่ง docker compose up -d
+### 6.3 เปิด Project product-service ด้วย VS2022 ...ดับเบิ้ลคลิกที่ไฟล์ product-service.sln ...แล้ว รัน (F5)
+### 6.4 เปิด Project order-service ด้วย VS2022 ...ดับเบิ้ลคลิกที่ไฟล์ order-service.sln ...แล้ว รัน (F5)
+### 6.4 Swagger Product Service ... ทำการเพิ่มสินค้า
+### 6.5 ที่ order-service ... รอสักครู่ ... ถ้าระบบสื่อสารได้ถูกต้อง Swagger order-service จะเด้งขึ้นมา กด Get... ดูจะเห็นรายการ Product ที่ถูกเพิ่มเข้า OrderDb.
+### 6.6 จบขั้นตอน
+ 
 
 ## 9. **แหล่งอ้างอิง**
 
