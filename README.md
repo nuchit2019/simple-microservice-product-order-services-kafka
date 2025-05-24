@@ -405,10 +405,11 @@ services:
 ### 6.6 จบขั้นตอน
  
 
-## 9. **แหล่งอ้างอิง**
+## 7. **แหล่งอ้างอิง**
 
 * [Confluent Kafka .NET Docs](https://docs.confluent.io/clients-confluent-kafka-dotnet/current/overview.html)
 * [Code Maze: Kafka with ASP.NET Core](https://code-maze.com/aspnetcore-using-kafka-in-a-web-api/)
 * [Kafka Docker Compose Example](https://github.com/confluentinc/cp-all-in-one)
 
 #
+## ขอบคุณ ChatBot ทุกตัว
