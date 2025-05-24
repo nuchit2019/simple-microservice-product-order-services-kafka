@@ -1,7 +1,12 @@
 # Simple-microservice-product-order-services-kafka
 
-ตัวอย่าง ไมโครเซอร์วิส: product service, order-services สื่อสารกันผ่าน Kafka
+**ตัวอย่าง** ไมโครเซอร์วิส: product service, order-services สื่อสารกันผ่าน Kafka
 โดยแต่ละ Service มีฐานข้อมูลของตัวเอง
+
+เป้าหมาย ตัวอย่างนี้คือ
+เมื่อมี Product ใหม่ เพิ่มเข้าที่ ProductDb => ต้องไปเพิ่มที่ OrderDb ด้วย
+โดยการสื่อสาร จะไม่ใช้ Synchronous (ผ่าน API) แต่ใช้ Asynchronous ผ่าน messaging broker โดยใช้ Kafka
+
 เมื่อมีสินค้าเพิ่มใหม่ (ProductDb) ที่ product service... จะส่ง Message (New Product) ไปที่ Kafka
 ที่ order-services จะดึง... Message(New Product) จาก Kafka ลงไปบันทึกที่ฐานข้อมูล ของตัวเอง OrderDb...
 
