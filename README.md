@@ -6,10 +6,8 @@
 
 **แสดงตัวอย่าง: Product Service ↔ Order Service (Sync via Kafka Events)**
  
-**Activity Diagram, Component Diagram, และอธิบายแต่ละ Layer/ไฟล์ หลักๆ**
-(ใช้ Markdown Mermaid เพื่อให้ Copy ไปใช้/ปรับต่อได้เลย)
-
----
+# **Activity Diagram, Component Diagram**
+ 
 
 ## 1. **Activity Diagram**
 
