@@ -398,10 +398,10 @@ services:
 ## 6. **ขั้นตอนการรัน**
 ### 6.1 เปิด Docker Desktop
 ### 6.2 พาธ Project ที่มีไฟล์ docker-compose.yml เข้า cmd แล้วพิมพ์ คำสั่ง docker compose up -d
+จะเห็น Service ที่พร้อมทำงาน...
 ![image](https://github.com/user-attachments/assets/f054e65f-1032-49b3-a47d-54e91ffa1eab)
 
 ### 6.3 เปิด Project product-service ด้วย VS2022 ...ดับเบิ้ลคลิกที่ไฟล์ product-service.sln ...แล้ว รัน (F5)
-
 ### 6.4 เปิด Project order-service ด้วย VS2022 ...ดับเบิ้ลคลิกที่ไฟล์ order-service.sln ...แล้ว รัน (F5)
 ### 6.4 Swagger Product Service ... ทำการเพิ่มสินค้า
 ![image](https://github.com/user-attachments/assets/938a77a3-c0e1-48be-879f-4bc61dd78b39)
