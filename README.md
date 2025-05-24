@@ -1,19 +1,66 @@
-# Simple-microservice-product-order-services-kafka
+# Simple Microservices: Product Service & Order Service (Communication via Kafka)
 
-**ตัวอย่าง** ไมโครเซอร์วิส: product service, order-services สื่อสารกันผ่าน Kafka
-โดยแต่ละ Service มีฐานข้อมูลของตัวเอง
+**ตัวอย่างระบบไมโครเซอร์วิส (Microservices Example):**
 
-### เป้าหมาย ตัวอย่างนี้คือ
+* **Product Service** และ **Order Service**
+* แต่ละ Service มีฐานข้อมูลแยกของตัวเอง (ProductDb, OrderDb)
+* การสื่อสารระหว่าง Service ใช้ **Kafka** (Asynchronous Messaging)
+* ไม่มีการเรียก API ตรง (No Synchronous API Call)
 
-เมื่อมี Product ใหม่ เพิ่มเข้าที่ ProductDb => ต้องไปเพิ่มที่ OrderDb ด้วย
-โดยการสื่อสาร จะไม่ใช้ Synchronous (ผ่าน API) แต่ใช้ Asynchronous ผ่าน messaging broker โดยใช้ Kafka
+#
 
-เมื่อมีสินค้าเพิ่มใหม่ (ProductDb) ที่ product service... จะส่ง Message (New Product) ไปที่ Kafka
-ที่ order-services จะดึง... Message(New Product) จาก Kafka ลงไปบันทึกที่ฐานข้อมูล ของตัวเอง OrderDb...
+### เป้าหมาย (Objective)
 
-**แยก Product Service, Order Service คนละ Project, คนละ Repo, คนละ Solution** 
+* เมื่อมีการเพิ่มสินค้าใหม่ลงใน **ProductDb** ที่ Product Service
+* Product Service จะส่ง Event (New Product) ไปที่ **Kafka Broker**
+* Order Service จะเป็น Consumer คอยดึง Event จาก Kafka และนำข้อมูลสินค้าใหม่ไปบันทึกลง **OrderDb** ของตัวเอง
+* ระบบนี้แยก Product Service และ Order Service คนละโปรเจกต์ คนละรีโพ คนละ Solution อย่างชัดเจน
 
-**แสดงตัวอย่าง: Product Service ↔ Order Service (Sync via Kafka Events)**
+#
+
+### Communication Flow
+
+```
+[Product Service] (ProductDb)
+      │  เพิ่มสินค้าใหม่
+      ▼
+ส่ง Event "New Product"
+      │
+      ▼
+   [Kafka Broker]
+      │
+      ▼
+[Order Service] (OrderDb)
+ รับ Event, Insert ข้อมูลสินค้าใหม่
+```
+
+#
+
+### จุดเด่น
+
+* **Loose Coupling:** Services แยกจากกันอย่างสิ้นเชิง
+* **Scalability:** ขยายแยกอิสระตาม Load ของแต่ละ Service
+* **Reliability:** หาก Order Service Down ก็สามารถรับ Event ย้อนหลังได้เมื่อกลับมาทำงาน
+* **Asynchronous Communication:** ลดปัญหาคอขวดและ Dependency
+
+---
+
+### 
+
+> ตัวอย่างนี้สาธิตการสื่อสารข้อมูลข้าม Service ด้วย Kafka โดยไม่มีการเรียก REST API ตรงระหว่าง Product Service และ Order Service
+> ทุก Service มีฐานข้อมูลของตัวเอง และรับ-ส่งข้อมูลผ่าน Event-Driven Architecture เท่านั้น
+
+
+
+---
+
+**English Summary:**
+This example demonstrates how to integrate Product Service and Order Service (in separate projects/repos/solutions), using Kafka as the asynchronous event bus. When a new product is created in Product Service (ProductDb), it publishes an event to Kafka, which is then consumed by Order Service and stored in its own database (OrderDb). No direct API calls—only event-driven communication.
+
+---
+
+ถ้าต้องการโค้ดตัวอย่าง, Diagram, หรือ Flow เพิ่มเติม แจ้งได้เลย!
+
  
 # **Activity Diagram, Component Diagram**
  
