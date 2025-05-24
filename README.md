@@ -109,11 +109,9 @@ graph TD
 * **Infrastructure Layer:** จัดการ DB (Repository), สื่อสารกับ Kafka (Producer/Consumer)
 * **Domain Layer:** ข้อมูล/Entity/DTO ที่ใช้ข้ามระบบ
 
----
+#
 
-ถ้าต้องการรายละเอียดแต่ละไฟล์/แต่ละ method (ตัวอย่าง code หรือพิมพ์ชื่อ method ทุกไฟล์) แจ้งได้เลย!
-หรือถ้าต้องการ **README.md** + Diagram แนบ ก็บอกได้ครับ!
- 
+# Concept Overview
 
 ## 1. **Concept Overview**
 
