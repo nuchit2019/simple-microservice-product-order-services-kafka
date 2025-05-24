@@ -1,15 +1,121 @@
-# simple-microservice-product-order-services-kafka
+# Simple-microservice-product-order-services-kafka
 ไมโครเซอร์วิส: ระบบสินค้า-ออเดอร์ สื่อสารกันผ่าน Kafka
-#
-
-**แยก Product Service, Order Service คนละ Project, คนละ Repo, คนละ Solution**
-
-#
  
 
-**แสดงตัวอย่าง: Product Service ↔ Order Service (Sync via Kafka Events)**
+**แยก Product Service, Order Service คนละ Project, คนละ Repo, คนละ Solution** 
 
-#
+**แสดงตัวอย่าง: Product Service ↔ Order Service (Sync via Kafka Events)**
+ 
+**Activity Diagram, Component Diagram, และอธิบายแต่ละ Layer/ไฟล์ หลักๆ**
+(ใช้ Markdown Mermaid เพื่อให้ Copy ไปใช้/ปรับต่อได้เลย)
+
+---
+
+## 1. **Activity Diagram**
+
+**Create Product → Sync ไป Order Service ผ่าน Kafka**
+
+```mermaid
+flowchart TD
+    A[Client] --> B[Product Service API<br>POST /products]
+    B --> C[บันทึกลง ProductDb]
+    C --> D[Publish ProductCreatedEvent<br>to Kafka]
+    D --> E[Kafka Broker]
+    E --> F[Order Service Consumer<br>Subscribe ProductCreatedEvent]
+    F --> G[Upsert/Insert Product<br>ลง OrderDb]
+```
+
+**อธิบาย:**
+
+* Client เรียก Product API
+* Product Service บันทึก DB ของตัวเอง แล้ว Publish Event ไป Kafka
+* Order Service Consume Event แล้วบันทึก/Sync Product ลง DB ของตัวเอง
+
+---
+
+## 2. **Component Diagram**
+
+```mermaid
+graph TD
+    subgraph Product Service
+        PSAPI[Product API]
+        PSRepo[Product Repository]
+        PSKafka[Kafka Producer]
+        PSDB[(ProductDb)]
+    end
+
+    subgraph Kafka Platform
+        KafkaBroker[Kafka Broker]
+    end
+
+    subgraph Order Service
+        OSConsumer[Kafka Consumer]
+        OSRepo[OrderProduct Repository]
+        OSAPI[Order API]
+        OSDB[(OrderDb)]
+    end
+
+    PSAPI --> PSRepo
+    PSAPI --> PSKafka
+    PSRepo --> PSDB
+    PSKafka --> KafkaBroker
+    KafkaBroker --> OSConsumer
+    OSConsumer --> OSRepo
+    OSRepo --> OSDB
+    OSAPI --> OSRepo
+```
+
+**อธิบาย:**
+
+* Product API เรียกใช้ Repository (ติดต่อฐานข้อมูล) และ Kafka Producer
+* Kafka Broker รับ Event
+* Order Service มี Consumer ที่รับ Event แล้วเขียนข้อมูลลง OrderDb
+* Order API อ่าน/แก้ไขข้อมูลผ่าน Repository
+
+---
+
+## 3. **อธิบายโครงสร้างโปรเจกต์/ไฟล์และ Layer**
+
+### **Product Service**
+
+* **Controllers/ProductController.cs**
+  รับ HTTP Request (POST, GET ฯลฯ)
+* **Application/Services/ProductService.cs**
+  Business Logic จัดการสินค้า
+* **Infrastructure/Repositories/ProductRepository.cs**
+  เชื่อมฐานข้อมูล
+* **Infrastructure/Kafka/KafkaProducer.cs**
+  สร้างและส่ง Event ไป Kafka (Publish)
+* **Domain/Entities/Product.cs**
+  โมเดลข้อมูลสินค้า
+* **Domain/Events/ProductCreatedEvent.cs**
+  โมเดลสำหรับ Event ที่ส่งไป Kafka
+
+### **Order Service**
+
+* **Infrastructure/Kafka/KafkaProductConsumer.cs**
+  Consumer ที่รอรับ Event จาก Kafka (BackgroundService)
+* **Application/Services/OrderProductService.cs**
+  Logic สำหรับ Sync/Upsert ข้อมูล Product
+* **Infrastructure/Repositories/OrderProductRepository.cs**
+  เขียน/อ่านฐานข้อมูล OrderDb
+* **Domain/Entities/Product.cs**
+  โมเดล Product ที่เก็บใน OrderDb
+
+---
+
+## **คำอธิบายชั้น/Layer**
+
+* **API/Controller Layer:** รับ-ตอบ HTTP Request (RESTful)
+* **Application/Service Layer:** จัดการ Business Logic
+* **Infrastructure Layer:** จัดการ DB (Repository), สื่อสารกับ Kafka (Producer/Consumer)
+* **Domain Layer:** ข้อมูล/Entity/DTO ที่ใช้ข้ามระบบ
+
+---
+
+ถ้าต้องการรายละเอียดแต่ละไฟล์/แต่ละ method (ตัวอย่าง code หรือพิมพ์ชื่อ method ทุกไฟล์) แจ้งได้เลย!
+หรือถ้าต้องการ **README.md** + Diagram แนบ ก็บอกได้ครับ!
+ 
 
 ## 1. **Concept Overview**
 
