@@ -494,7 +494,7 @@ services:
 
 ![image](https://github.com/user-attachments/assets/03c4edcd-e291-4aa0-b121-edfa21dff45f)
 
-...รอสักครู่...จะเห็น Service ที่พร้อมทำงาน...
+...รอสักครู่...จะเห็น Service start... พร้อมทำงาน...
 
 ![image](https://github.com/user-attachments/assets/f054e65f-1032-49b3-a47d-54e91ffa1eab)
 
