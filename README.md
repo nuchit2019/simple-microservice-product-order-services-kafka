@@ -425,12 +425,17 @@ services:
   kafka:
     image: 'confluentinc/cp-kafka:7.4.0'
     ports:
-      - "9092:9092"
+      - "9092:9092"  # สำหรับ container อื่นใช้ (kafka:9092)
+      - "9093:9093"  # สำหรับ host ใช้ (host.docker.internal:9093)
+    depends_on:
+      - zookeeper
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_HOST://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://192.168.1.103:9093 # 192.168.1.103 => เปลี่ยนเป็น IP เครื่อง ตัวเอง (ใน cmd พิมพ์ ipconfig)
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
   kafdrop:
@@ -441,7 +446,37 @@ services:
       KAFKA_BROKERCONNECT: "kafka:9092"
     depends_on:
       - kafka
+
+  productdb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: productdb
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Your_productdb_password1"
+      ACCEPT_EULA: "Y"
+    healthcheck:
+      test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "192.168.1.103", "-U", "sa", "-P", "Your_productdb_password1", "-Q", "SELECT 1" ]
+      interval: 10s
+      retries: 10
+
+  orderdb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: orderdb
+    ports:
+      - "1434:1433"
+    environment:
+      SA_PASSWORD: "Your_orderdb_password1"
+      ACCEPT_EULA: "Y"
+    healthcheck:
+      test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "192.168.1.103", "-U", "sa", "-P", "Your_orderdb_password1", "-Q", "SELECT 1" ]
+      interval: 10s
+      retries: 10
+
 ```
+### ดู IP เครื่องตัวเอง.... ใน cmd พิมพ์ ipconfig
+
+![image](https://github.com/user-attachments/assets/d86c905e-8460-45f1-8a11-963c9d9395c5)
 
 #
 
