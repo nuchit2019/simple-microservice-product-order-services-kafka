@@ -446,7 +446,7 @@ services:
 #
 
 ## 6. **ขั้นตอนการรัน**
-### 6.1 เปิด Docker Desktop 
+### 6.1 เปิด Docker Desktop (start docker service)
 ![image](https://github.com/user-attachments/assets/cddde0cc-f994-416b-932a-ee38986f1a00)
 
 ### 6.2 Download Project ...แตก Zip..., ไปที่ พาธ Project ที่มีไฟล์ docker-compose.yml เข้า cmd แล้วพิมพ์ คำสั่ง docker compose up -d
