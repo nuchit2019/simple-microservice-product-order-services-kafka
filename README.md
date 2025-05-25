@@ -446,9 +446,16 @@ services:
 #
 
 ## 6. **ขั้นตอนการรัน**
-### 6.1 เปิด Docker Desktop
-### 6.2 ไปที่ พาธ Project ที่มีไฟล์ docker-compose.yml เข้า cmd แล้วพิมพ์ คำสั่ง docker compose up -d
+### 6.1 เปิด Docker Desktop 
+![image](https://github.com/user-attachments/assets/cddde0cc-f994-416b-932a-ee38986f1a00)
+
+### 6.2 Download Project ...แตก Zip..., ไปที่ พาธ Project ที่มีไฟล์ docker-compose.yml เข้า cmd แล้วพิมพ์ คำสั่ง docker compose up -d
 ...รอสักครู่...จะเห็น Service ที่พร้อมทำงาน...
+![image](https://github.com/user-attachments/assets/a488cdbf-121a-441f-88b4-0d68c9fce0a8)
+
+![image](https://github.com/user-attachments/assets/03c4edcd-e291-4aa0-b121-edfa21dff45f)
+
+
 ![image](https://github.com/user-attachments/assets/f054e65f-1032-49b3-a47d-54e91ffa1eab)
 
 ### 6.3 เปิด Project product-service ด้วย VS2022 ...ดับเบิ้ลคลิกที่ไฟล์ product-service.sln ...แล้ว รัน (F5)
