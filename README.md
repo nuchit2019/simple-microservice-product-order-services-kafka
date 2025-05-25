@@ -527,7 +527,7 @@ services:
 * [Confluent Kafka .NET Docs](https://docs.confluent.io/clients-confluent-kafka-dotnet/current/overview.html)
 * [Code Maze: Kafka with ASP.NET Core](https://code-maze.com/aspnetcore-using-kafka-in-a-web-api/)
 * [Kafka Docker Compose Example](https://github.com/confluentinc/cp-all-in-one)
-* วาด Flow mermaid format: https://www.mermaidchart.com (https://www.mermaidchart.com)
+* [วาด Flow mermaid format: https://www.mermaidchart.com](https://www.mermaidchart.com)
 
 #
 
