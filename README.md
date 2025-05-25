@@ -531,6 +531,6 @@ services:
 #
 
 
-> *  Nuchita-นุชิตะ
+> *  Nuchito-นุชิโตะ
 > *  2025-05-24
 > *  ขอบคุณ ChatBot ทุกตัว
