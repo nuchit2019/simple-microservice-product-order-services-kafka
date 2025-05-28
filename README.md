@@ -14,7 +14,7 @@
 * เมื่อมีการเพิ่มสินค้าใหม่ลงใน **ProductDb** ที่ Product Service
 * Product Service จะส่ง Event (New Product) ไปที่ **Kafka Broker**
 * Order Service จะเป็น Consumer คอยดึง Event จาก Kafka และนำข้อมูลสินค้าใหม่ไปบันทึกลง **OrderDb** ของตัวเอง
-* ระบบนี้แยก Product Service และ Order Service คนละโปรเจกต์ คนละรีโพ คนละ Solution อย่างชัดเจน
+* ระบบนี้แยก Product Service และ Order Service คนละโปรเจกต์ คนละรีโพ คนละ Solution ...
 
 #
 
